@@ -6,14 +6,18 @@ package com.mycompany.AD;
 
 import java.io.IOError;
 import java.io.IOException;
+import java.nio.file.DirectoryStream;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Stream;
 
 /**
  *
@@ -39,16 +43,24 @@ public class Gestor {
     }
 
     //TERMNAR!!!!!!!!!!!!!!!!!!
-    public static String ObtenerFicheros(Path ruta) {//listar ficheros y sub directorios. añadir D o F despues de los nombres
+    public static void ObtenerFicheros(Path ruta) throws IOException {//listar ficheros y sub directorios. añadir D o F despues de los nombres
 
-        String cadena = "";
+      
+       //investigar esta movida
+       try(DirectoryStream<Path> lista = Files.newDirectoryStream(ruta)){
 
-        if (Files.exists(ruta) && Files.isDirectory(ruta)) {
-
-            //investigar Streams 
-        }
-
-        return cadena;
+           //recorrer el stream
+           for (Path file : lista) {               
+               String nombre = file.getFileName().toString(); //sacar el nombre del file
+               if (Files.isDirectory(file)) {//mostrar nombre y si es D o F
+                   
+                   System.out.println(nombre + "D");
+               } else {
+               
+                   System.out.println(nombre + "F");
+               }
+           }
+       }
 
     }
 
@@ -80,21 +92,12 @@ public class Gestor {
         return cadena;
     }
 
-    public static String ObtenerRutaActual() {//devolver la ruta del directorio de trabajo
+    public static Path ObtenerRutaActual() {//devolver la ruta del directorio de trabajo
 
-        String rutaAbs = "";
+        String dir = System.getProperty("user.dir");
+        Path ruta = Path.of(dir);
 
-        try {//usar user.dir
-
-            Path ruta = FileSystems.getDefault().getPath("");//sacar la ruta actual
-            rutaAbs = ruta.toAbsolutePath().toString();//hacerla absoluta y pasarla a String
-
-        } catch (IOError ex) {//por toAbsolutePath()
-            Logger.getLogger(Gestor.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return rutaAbs;
-
+        return ruta;
     }
 
     public static boolean EliminarFichero(Path ruta) throws IOException {//eliminar el fichero indicado en al ruta si existe
@@ -132,10 +135,12 @@ public class Gestor {
 
     public static void VerOCrearDirectorio(Path ruta) {//mostrar el contenido si existe y crearlo si no
 
+        
     }
 
     public static void ListarPorExt(Path ruta, String ext) {//listar todo el contenido de la ruta que tenga esa extension
 
+        
     }
 
     public static void mostarPrimeraLinea(Path ruta) {//comprobar que tiene ext .txt y leer la primera linea, mostrar advertencias

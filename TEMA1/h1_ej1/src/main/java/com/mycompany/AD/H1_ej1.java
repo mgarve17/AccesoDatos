@@ -49,34 +49,24 @@ public class H1_ej1 {
                     }
 
                     case 2 -> {
-                        
+
                         opcion2();
                     }
 
-                    case 3 -> {//obtener propiedades
-
-                        Path ruta = pedirRuta();
-
-                        System.out.println(Gestor.PropiedadesFicheros(ruta));
+                    case 3 -> {
+                        
+                        opcion3();
 
                     }
 
-                    case 4 -> {//obtener ruta del directorio
-
-                        System.out.println(Gestor.ObtenerRutaActual());
+                    case 4 -> {
+                        
+                        opcion4();
                     }
 
-                    case 5 -> {//controlar salida (true/false)
-
-                        Path ruta = pedirRuta();
-
-                        if (Gestor.EliminarFichero(ruta)) {
-
-                            System.out.println("Fichero eliminado");
-                        } else {
-
-                            System.out.println("El fichero no existe");
-                        }
+                    case 5 -> {
+                        
+                        opcion5();
 
                     }
 
@@ -115,7 +105,35 @@ public class H1_ej1 {
 
     }
 
-    private static void opcion2() {
+    private static void opcion5() throws IOException {
+        //controlar salida (true/false)
+
+        Path ruta = pedirRuta();
+
+        if (Gestor.EliminarFichero(ruta)) {
+
+            System.out.println("Fichero eliminado");
+        } else {
+
+            System.out.println("El fichero no existe");
+        }
+    }
+
+    private static void opcion4() {
+        //obtener ruta del directorio
+
+        System.out.println(Gestor.ObtenerRutaActual());
+    }
+
+    private static void opcion3() throws IOException {
+        //obtener propiedades
+
+        Path ruta = pedirRuta();
+
+        System.out.println(Gestor.PropiedadesFicheros(ruta));
+    }
+
+    private static void opcion2() throws IOException {
         //obtener ficheros en directorio TEMRINAR METODO!!
 
         Path ruta = pedirRuta();
