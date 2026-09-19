@@ -21,25 +21,21 @@ import java.util.logging.Logger;
  */
 public class Gestor {
 
-    public static String comprobar(Path ruta) {//comprobar si es directorio
+    public static boolean comprobar(Path ruta) {//comprobar si es directorio
 
-        String cadena;
-
-        if (existe(ruta)) {
-
-            cadena = "ruta encontrada";
+        //String cadena;
+        
+        boolean directorio = false;
+    
 
             if (Files.isDirectory(ruta)) {//indicar si es directorio
 
-                cadena += ", es un directorio";
+                
+                directorio = true;
             }
 
-        } else {
 
-            cadena = "ruta no encontada";
-        }
-
-        return cadena;
+        return directorio;
     }
 
     //TERMNAR!!!!!!!!!!!!!!!!!!
@@ -47,7 +43,7 @@ public class Gestor {
 
         String cadena = "";
 
-        if (existe(ruta) && Files.isDirectory(ruta)) {
+        if (Files.exists(ruta) && Files.isDirectory(ruta)) {
 
             //investigar Streams 
         }
@@ -56,26 +52,21 @@ public class Gestor {
 
     }
 
-    public static String PropiedadesFicheros(Path ruta) {//indicar si existe su tamaño y sus permisos
+    public static String PropiedadesFicheros(Path ruta) throws IOException {//indicar si existe su tamaño y sus permisos
 
         String cadena = "";
 
-        if (existe(ruta)) {
+        if (Files.exists(ruta)) {
 
             if (Files.isRegularFile(ruta)) {//comprobar que es un file
 
-                try {
+                //obtener info
+                byte size = (byte) Files.size(ruta);
+                boolean escritura = Files.isWritable(ruta);
+                boolean oculto = Files.isHidden(ruta);
 
-                    //obtener info
-                    byte size = (byte) Files.size(ruta);
-                    boolean escritura = Files.isWritable(ruta);
-                    boolean oculto = Files.isHidden(ruta);
+                cadena = "FICHERO \n TAMAÑO: " + size + " ESCRITURA: " + escritura + " OCULTO: " + oculto;
 
-                    cadena = "FICHERO \n TAMAÑO: " + size + " ESCRITURA: " + escritura + " OCULTO: " + oculto;
-
-                } catch (IOException ex) {
-                    Logger.getLogger(Gestor.class.getName()).log(Level.SEVERE, null, ex);
-                }
             } else {
 
                 cadena = "es un directorio";
@@ -91,17 +82,17 @@ public class Gestor {
 
     public static String ObtenerRutaActual() {//devolver la ruta del directorio de trabajo
 
-        String rutaAbs="";
+        String rutaAbs = "";
 
-        try {
+        try {//usar user.dir
 
             Path ruta = FileSystems.getDefault().getPath("");//sacar la ruta actual
-           rutaAbs = ruta.toAbsolutePath().toString();//hacerla absoluta y pasarla a String
-            
+            rutaAbs = ruta.toAbsolutePath().toString();//hacerla absoluta y pasarla a String
+
         } catch (IOError ex) {//por toAbsolutePath()
-                    Logger.getLogger(Gestor.class.getName()).log(Level.SEVERE, null, ex);
-                }
-        
+            Logger.getLogger(Gestor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         return rutaAbs;
 
     }
@@ -111,33 +102,36 @@ public class Gestor {
         return Files.deleteIfExists(ruta);
     }
 
-    public static void MoverFichero(Path ruta1, Path ruta2) {//mover un fichero existente de una ruta a otra
+    public static void MoverFichero(Path ruta1, Path ruta2) throws IOException {//mover un fichero existente de una ruta a otra
 
-         if (existe(ruta1) && existe(ruta2)) {
+        if (Files.exists(ruta1) && Files.exists(ruta2)) {
+
+            Files.move(ruta1, ruta2, REPLACE_EXISTING);//mover de ruta1 a ruta2 y reemplazarlo si ya existe
+
+        }
+
+    }
+
+    public static void RenombrarFichero(Path ruta, String nombre) {//Renombrar el fichero de la ruta si exsite, rechazar si el nombre ya existe
+
+        if (Files.exists(ruta)) {
             
-             try {
-                 
-                 Files.move(ruta1, ruta2, REPLACE_EXISTING);//mover de ruta1 a ruta2 y reemplazarlo si ya existe
-                                  
-             } catch (IOException ex) {
-                 Logger.getLogger(Gestor.class.getName()).log(Level.SEVERE, null, ex);
-             }
+            ruta.resolveSibling(nombre);
         }
         
     }
 
-    public static void RenombrarFichero(Path ruta) {//Renombrar el fichero de la ruta si exsite, rechazar si el nombre ya existe
-        
-       
-    }
+    public static void copiarFichero(Path ruta, Path ruta2) throws IOException {//copiar el fichero de una ruta a otra
 
-    public static void copiarFichero(Path ruta, Path ruta2) {//copiar el fichero de una ruta a otra
+        if (Files.exists(ruta) && Files.exists(ruta2)) {
 
+            Files.copy(ruta, ruta2, REPLACE_EXISTING);//copiar de ruta1 a ruta2 y reemplazarlo si ya existe
+
+        }
     }
 
     public static void VerOCrearDirectorio(Path ruta) {//mostrar el contenido si existe y crearlo si no
 
-        
     }
 
     public static void ListarPorExt(Path ruta, String ext) {//listar todo el contenido de la ruta que tenga esa extension
@@ -148,24 +142,6 @@ public class Gestor {
 
     }
 
-    private static boolean existe(Path ruta) {//metodo para comprobar la existencia de un archivo
 
-        boolean validar = false;
-
-        if (Files.exists(ruta)) {
-
-            validar = true;
-        }
-
-        return validar;
-    }
-    
-    public static Path pedirRuta(){//pedir ruta por teclado y devolver un Path
-    
-        System.out.println("Escribir ruta: ");
-        String cadena = new Scanner(System.in).nextLine().trim();
-        
-        return Path.of(cadena);
-    }
 
 }
