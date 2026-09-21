@@ -105,6 +105,10 @@ public class H1_ej1 {
 
     }
 
+    private static void opcion6(){
+    
+        
+    }
     private static void opcion5() throws IOException {
         //controlar salida (true/false)
 

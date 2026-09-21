@@ -4,6 +4,7 @@
  */
 package com.mycompany.AD;
 
+import java.io.BufferedReader;
 import java.io.IOError;
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
@@ -28,16 +29,12 @@ public class Gestor {
     public static boolean comprobar(Path ruta) {//comprobar si es directorio
 
         //String cadena;
-        
         boolean directorio = false;
-    
 
-            if (Files.isDirectory(ruta)) {//indicar si es directorio
+        if (Files.isDirectory(ruta)) {//indicar si es directorio
 
-                
-                directorio = true;
-            }
-
+            directorio = true;
+        }
 
         return directorio;
     }
@@ -45,28 +42,27 @@ public class Gestor {
     //TERMNAR!!!!!!!!!!!!!!!!!!
     public static void ObtenerFicheros(Path ruta) throws IOException {//listar ficheros y sub directorios. añadir D o F despues de los nombres
 
-      
-       //investigar esta movida
-       try(DirectoryStream<Path> lista = Files.newDirectoryStream(ruta)){
+        //investigar esta movida
+        try (DirectoryStream<Path> lista = Files.newDirectoryStream(ruta)) {
 
-           //recorrer el stream
-           for (Path file : lista) {               
-               String nombre = file.getFileName().toString(); //sacar el nombre del file
-               if (Files.isDirectory(file)) {//mostrar nombre y si es D o F
-                   
-                   System.out.println(nombre + "D");
-               } else {
-               
-                   System.out.println(nombre + "F");
-               }
-           }
-       }
+            //recorrer el stream
+            for (Path file : lista) {
+                String nombre = file.getFileName().toString(); //sacar el nombre del file
+                if (Files.isDirectory(file)) {//mostrar nombre y si es D o F
+
+                    System.out.println(nombre + " D");
+                } else {
+
+                    System.out.println(nombre + " F");
+                }
+            }
+        }
 
     }
 
     public static String PropiedadesFicheros(Path ruta) throws IOException {//indicar si existe su tamaño y sus permisos
 
-        String cadena = "";
+        String cadena;
 
         if (Files.exists(ruta)) {
 
@@ -118,10 +114,10 @@ public class Gestor {
     public static void RenombrarFichero(Path ruta, String nombre) {//Renombrar el fichero de la ruta si exsite, rechazar si el nombre ya existe
 
         if (Files.exists(ruta)) {
-            
+
             ruta.resolveSibling(nombre);
         }
-        
+
     }
 
     public static void copiarFichero(Path ruta, Path ruta2) throws IOException {//copiar el fichero de una ruta a otra
@@ -133,20 +129,70 @@ public class Gestor {
         }
     }
 
-    public static void VerOCrearDirectorio(Path ruta) {//mostrar el contenido si existe y crearlo si no
+    public static void VerOCrearDirectorio(Path ruta) throws IOException {//mostrar el contenido si existe y crearlo si no
 
-        
+        if (Files.exists(ruta) && Files.isDirectory(ruta)) {
+            try (DirectoryStream<Path> lista = Files.newDirectoryStream(ruta)) {
+
+                //recorrer el stream
+                for (Path file : lista) {
+                    String nombre = file.getFileName().toString(); //sacar el nombre del file
+                    System.out.println(nombre);
+                }
+            }
+
+        }
+
     }
 
-    public static void ListarPorExt(Path ruta, String ext) {//listar todo el contenido de la ruta que tenga esa extension
+    public static void ListarPorExt(Path ruta, String ext) throws IOException {//listar todo el contenido de la ruta que tenga esa extension
 
-        
+        if (Files.exists(ruta) && Files.isDirectory(ruta)) { //investigar esta movida
+
+            try (DirectoryStream<Path> lista = Files.newDirectoryStream(ruta)) {
+
+                //recorrer el stream
+                for (Path file : lista) {
+                    String nombre = file.getFileName().toString(); //sacar el nombre del file
+                    if (nombre.endsWith(ext)) {//mostrar nombre si termina en la extension
+
+                        System.out.println(nombre);
+                    }
+                }
+            }
+        }
+
     }
 
-    public static void mostarPrimeraLinea(Path ruta) {//comprobar que tiene ext .txt y leer la primera linea, mostrar advertencias
+    public static void mostarPrimeraLinea(Path ruta) throws IOException {//comprobar que tiene ext .txt y leer la primera linea, mostrar advertencias
 
+        String cadena;
+
+        if (Files.exists(ruta) && Files.isRegularFile(ruta)) {
+            String nombre = ruta.getFileName().toString();
+
+            if (nombre.endsWith(".txt")) {//si el file termina en la extension txt leer la primera linea
+
+                try (BufferedReader br = Files.newBufferedReader(ruta)) {
+
+                    String linea = br.readLine();
+
+                    if (linea.isEmpty()) {//comprbar si esta vacio
+
+                        cadena = "fichero vacio";
+                    } else {
+
+                        cadena = linea;
+                    }
+                }
+            } else {
+
+                cadena = "no es un archivo .txt";
+            }
+        } else {
+
+            cadena = "no existe el archivo";
+        }
     }
-
-
 
 }
