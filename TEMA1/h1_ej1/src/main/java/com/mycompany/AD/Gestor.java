@@ -12,6 +12,7 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import java.util.Iterator;
 import java.util.List;
@@ -39,7 +40,7 @@ public class Gestor {
         return directorio;
     }
 
-    //TERMNAR!!!!!!!!!!!!!!!!!!
+    //TERMNAR!!!!!!!!!!!!!!!!!! cambiar a public static list y utilizar stream
     public static void ObtenerFicheros(Path ruta) throws IOException {//listar ficheros y sub directorios. añadir D o F despues de los nombres
 
         //investigar esta movida
@@ -124,7 +125,7 @@ public class Gestor {
 
         if (Files.exists(ruta) && Files.exists(ruta2)) {
 
-            Files.copy(ruta, ruta2, REPLACE_EXISTING);//copiar de ruta1 a ruta2 y reemplazarlo si ya existe
+            Files.copy(ruta, ruta2, StandardCopyOption.REPLACE_EXISTING/*REPLACE_EXISTING*/);//copiar de ruta1 a ruta2 y reemplazarlo si ya existe
 
         }
     }
@@ -145,6 +146,7 @@ public class Gestor {
 
     }
 
+    //CAMBIAR
     public static void ListarPorExt(Path ruta, String ext) throws IOException {//listar todo el contenido de la ruta que tenga esa extension
 
         if (Files.exists(ruta) && Files.isDirectory(ruta)) { //investigar esta movida
@@ -162,6 +164,14 @@ public class Gestor {
             }
         }
 
+    }
+    public static String primeraLinea(Path ruta) throws IOException{
+    
+        try(Stream<String> lineas =Files.lines(ruta)){
+        
+            //leer la primera linea y si no hay nada devolver nulo
+            return lineas.findFirst().orElse(null);
+        }
     }
 
     public static void mostarPrimeraLinea(Path ruta) throws IOException {//comprobar que tiene ext .txt y leer la primera linea, mostrar advertencias

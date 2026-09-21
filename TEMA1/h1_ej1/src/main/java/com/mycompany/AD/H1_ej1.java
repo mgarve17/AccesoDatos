@@ -3,14 +3,12 @@
  */
 package com.mycompany.AD;
 
-import static com.mycompany.AD.Gestor.comprobar;
 import java.io.IOException;
 import java.util.Scanner;
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *
@@ -35,6 +33,8 @@ public class H1_ej1 {
 
             do {
 
+                //enseñar el menu por consola
+                mostrarMenu();
                 switch (opcion) {
 
                     case 0 -> {
@@ -54,23 +54,25 @@ public class H1_ej1 {
                     }
 
                     case 3 -> {
-                        
+
                         opcion3();
 
                     }
 
                     case 4 -> {
-                        
+
                         opcion4();
                     }
 
                     case 5 -> {
-                        
+
                         opcion5();
 
                     }
 
                     case 6 -> {
+                        
+                        opcion6();
                     }
 
                     case 7 -> {
@@ -99,16 +101,39 @@ public class H1_ej1 {
 
         } catch (InvalidPathException e) {
 
+            System.out.println("Ruta invalida");
+            
         } catch (NumberFormatException e) {
 
+            System.out.println("Formato incorrecto");
         }
 
     }
 
-    private static void opcion6(){
-    
-        
+    private static void mostrarMenu() {
+
+        System.out.println("\t ---MENÚ---");
+        System.out.println("1. Comprobar si es directorio");
+        System.out.println("2. Obtener ficheros en directorio");
+        System.out.println("3. Obtener propiedades de fichero");
+        System.out.println("4. Obtener ruta del directorio actual");
+        System.out.println("5. Eliminar fichero");
+        System.out.println("6. Mover fichero");
+        System.out.println("7. Renombrar fichero");
+        System.out.println("8. Copiar fichero");
+        System.out.println("9. Ver/Crear directorio");
+        System.out.println("10. Buscar por extensión en directorio");
+        System.out.println("11. Mostrar primera línea de fichero de texto");
+        System.out.println("0. salir");
     }
+
+    
+    //METER CONTROL DE EXCEPCIONES EN TODOS LAS OPCIONES EN VEZ DE LANZARLO
+    
+    private static void opcion6() {
+
+    }
+
     private static void opcion5() throws IOException {
         //controlar salida (true/false)
 
@@ -157,6 +182,10 @@ public class H1_ej1 {
             if (Gestor.comprobar(ruta)) {
 
                 System.out.println("Es un directorio");
+                
+            } else {
+
+                System.out.println("es un archivo");
             }
 
         } else {
