@@ -46,7 +46,7 @@ public class H2_titanic {
                         }
                     }
 
-                    case 2 -> {
+                    case 2 -> {//buscar un valor en una columna
                     }
 
                     case 3 -> {

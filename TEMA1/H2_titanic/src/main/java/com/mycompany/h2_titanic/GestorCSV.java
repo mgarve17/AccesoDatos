@@ -25,7 +25,9 @@ public class GestorCSV {
       }
       
       //buscar valor en el fichero y devolver todas filas 
-      public List<String> mostrarValor(){
+      public List<String> mostrarValor(String columna, String valor){
+          
+          
           return null;
       }
       
