@@ -5,6 +5,7 @@
 package com.mycompany.h2;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Files;
 
@@ -19,17 +20,20 @@ public class Gestor {
         byte[] b = null;
 
         if (Files.isReadable(ruta)) {
-            
+
             b = Files.readAllBytes(ruta);
         }
         return b;
 
     }
 
-    public static void leerEnChar(byte[] b) {//leer fichero y devolver un char[]?
+    public static void leerEnChar(Path ruta) throws IOException {//leer fichero y devolver un char[]?
 
-       
-        
+        try (InputStream input = Files.newInputStream(ruta)) {
+
+            
+        }
+
     }
 
     public static byte buscarByte() {//mostrar si el byte esta en el fichero y cuantas veces
