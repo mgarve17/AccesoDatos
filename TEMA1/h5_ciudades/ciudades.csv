@@ -1,0 +1,101 @@
+Id,Nombre,CodigoPais,Provincia,Poblacion
+1,Torrelavega,ESP,Cantabria,52000
+2,Barcelona,ESP,Cataluña,1620000
+3,Valencia,ESP,Comunidad Valenciana,800000
+4,Sevilla,ESP,Andalucía,680000
+5,Zaragoza,ESP,Aragón,675000
+6,Málaga,ESP,Andalucía,580000
+7,Murcia,ESP,Región de Murcia,460000
+8,Palma de Mallorca,ESP,Islas Baleares,420000
+9,Las Palmas de Gran Canaria,ESP,Canarias,380000
+10,Bilbao,ESP,País Vasco,345000
+11,Alicante,ESP,Comunidad Valenciana,335000
+12,Córdoba,ESP,Andalucía,320000
+13,Valladolid,ESP,Castilla y León,298000
+14,Vigo,ESP,Galicia,293000
+15,Gijón,ESP,Asturias,270000
+16,A Coruña,ESP,Galicia,245000
+17,Granada,ESP,Andalucía,230000
+18,Vitoria-Gasteiz,ESP,País Vasco,255000
+19,Elche,ESP,Comunidad Valenciana,240000
+20,Oviedo,ESP,Asturias,220000
+21,Santa Cruz de Tenerife,ESP,Canarias,210000
+22,Pamplona,ESP,Navarra,203000
+23,Santander,ESP,Cantabria,172000
+24,Salamanca,ESP,Castilla y León,144000
+25,Burgos,ESP,Castilla y León,175000
+26,León,ESP,Castilla y León,122000
+27,Logroño,ESP,La Rioja,150000
+28,Badajoz,ESP,Extremadura,150000
+29,Mérida,ESP,Extremadura,60000
+30,Lugo,ESP,Galicia,98000
+31,LUGO,esp,galicia,97500
+32,Paris,FRA,Ile-de-France,2160000
+33,Marseille,FRA,Provenza,870000
+34,Lyon,FRA,Auvernia,520000
+35,Toulouse,FRA,Occitania,490000
+36,Nice,FRA,Provenza,340000
+37,Nantes,FRA,Loira,310000
+38,Roma,ITA,Lacio,2870000
+39,Milano,ITA,Lombardia,1370000
+40,Napoli,ITA,Campania,960000
+41,Torino,ITA,Piamonte,870000
+42,Palermo,ITA,Sicilia,640000
+43,Genova,ITA,Liguria,570000
+44,Berlin,DEU,Berlin,3670000
+45,Hamburg,DEU,Hamburgo,1850000
+46,Munchen,DEU,Baviera,1480000
+47,Koln,DEU,Renania del Norte-Westfalia,1080000
+48,Lisboa,PRT,Lisboa,545000
+49,Porto,PRT,Porto,232000
+50,Braga,PRT,Braga,193000
+51,Coimbra,PRT,Coimbra,143000
+52,London,GBR,Inglaterra,8980000
+53,Birmingham,GBR,Inglaterra,1140000
+54,Glasgow,GBR,Escocia,635000
+55,Edinburgh,GBR,Escocia,530000
+56,New York,USA,Nueva York,8400000
+57,Los Angeles,USA,California,3900000
+58,Chicago,USA,Illinois,2700000
+59,Houston,USA,Texas,2300000
+60,Phoenix,USA,Arizona,1600000
+61,Springfield,USA,Illinois,115000
+62,Springfield,USA,Massachusetts,155000
+63,Springfield,USA,Missouri,169000
+64,Portland,USA,Oregon,650000
+65,Portland,USA,Maine,68000
+66,Boston,USA,Massachusetts,690000
+67,Seattle,USA,Washington,750000
+68,Miami,USA,Florida,470000
+69,San Francisco,USA,California,875000
+70,Ciudad de México,MEX,Distrito Federal,9200000
+71,Guadalajara,MEX,Jalisco,1500000
+72,Monterrey,MEX,Nuevo León,1140000
+73,Mérida,MEX,Yucatán,920000
+74,Buenos Aires,ARG,Buenos Aires,3070000
+75,Córdoba,ARG,Córdoba,1390000
+76,Rosario,ARG,Santa Fe,1190000
+77,Mendoza,ARG,Mendoza,115000
+78,São Paulo,BRA,São Paulo,12300000
+79,Rio de Janeiro,BRA,Rio de Janeiro,6700000
+80,Brasilia,BRA,Distrito Federal,3050000
+81,Salvador,BRA,Bahia,2900000
+82,Bogotá,COL,Bogotá D.C.,7400000
+83,Medellín,COL,Antioquia,2500000
+84,Santiago,CHL,Región Metropolitana,5600000
+85,Valparaíso,CHL,Valparaíso,296000
+86,Concepción,CHL,Biobío,230000
+87,Lima,PER,Lima,8900000
+88,Arequipa,PER,Arequipa,1000000
+89,Caracas,VEN,Distrito Capital,1900000
+90,Valencia,VEN,Carabobo,1390000
+91,Maracaibo,VEN,Zulia,2200000
+92,Tokio,JPN,Tokio,13960000
+93,Osaka,JPN,Osaka,2750000
+94,Kioto,JPN,Kioto,1460000
+95,Shanghai,CHN,Shanghai,24870000
+96,Beijing,CHN,Beijing,21540000
+97,Delhi,IND,Delhi,16800000
+98,Mumbai,IND,Maharashtra,12440000
+99,Santiago,DOM,Santiago,550000
+100,Santo Domingo,DOM,Distrito Nacional,965000
