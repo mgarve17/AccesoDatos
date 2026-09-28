@@ -46,14 +46,16 @@ public class H2_titanic {
                     }
 
                     case 2 -> {//buscar un valor en una columna
-
+                        opcion2(ruta);
+                        
                     }
 
                     case 3 -> {//contar columnas
 
+                        opcion3(ruta);
                     }
 
-                    case 4 -> {
+                    case 4 -> {//
                     }
 
                     case 5 -> {
@@ -91,13 +93,71 @@ public class H2_titanic {
             System.out.println("");//salto de linea
         }
     }
+    
+    //llamar a buscar valor
+    private static void opcion2(Path ruta){
+    
+        System.out.println("""
+                           COLUMNA PARA BUSCAR 
+                           1. ID 
+                           2. Sobrevivi\u00f3 
+                           3. Clase 
+                           4. Sexo 
+                           5. Edad
+                           6. Hermanos y C\u00f3nyuges 
+                           7. Padres e hijos 
+                           8. Billete 
+                           9. Tarifa
+                           10. Camarote 
+                           11. Embarque""");
+        int columna = Integer.parseInt(new Scanner(System.in).nextLine().trim());//CONTROLAR LIMITE DE NUMEROS
+        
+        System.out.println("Dato: ");
+        String dato = new Scanner(System.in).nextLine().trim();
+        
+        //metodo que dada la tabla busca el dato en la columna deseada
+       List<String[]> lista = GestorCSV.mostrarValor(tablaCSV(ruta), dato, columna);
+       
+       //mostrar lista
+       for (String[] fila : lista) {//recorrer filas
+
+            for (String colum : fila) {//imprimir datos separados por |
+
+                System.out.print(colum + " |");
+            }
+            System.out.println("");//salto de linea
+        }
+       
+    }
 
     //llamar a contar columnas
-    private static void opcion3(Path ruta) throws IOException {
+    private static void opcion3(Path ruta)  {
 
-       int columnas = GestorCSV.contarColumnas(tablaCSV(ruta));
-       
-        System.out.println("Nº de columnas: " + columnas);
+        try {
+            int columnas = GestorCSV.contarColumnas(tablaCSV(ruta));
+            
+            System.out.println("Nº de columnas: " + columnas);
+        } catch (IOException ex) {
+            System.getLogger(H2_titanic.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+    }
+    
+    //llamar a añadir al final
+    private static void opcion4(Path ruta){
+    
+        try {
+            //cadena para introducir en el csv
+            String cadena = "892,1,1,female,58,0,0,113783,26.55,C103,S";
+            
+            //añadir linea al final del documento csv
+            GestorCSV.anadirFinal(ruta, cadena);
+            
+            System.out.println("entrada añadida");
+            
+        } catch (IOException ex) {
+            System.getLogger(H2_titanic.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+        
     }
 
     //ver contenido

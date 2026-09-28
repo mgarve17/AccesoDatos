@@ -27,10 +27,33 @@ public class GestorCSV {
       }
       
       //buscar valor en el fichero y devolver todas filas 
-      public List<String> mostrarValor(){
+      public static List<String[]> mostrarValor(List<String[]> lista, String valor,int columna){
           
+         List<String[]> listadoValores = null;
+         
+         
+          for (String[] fila : lista) {
+              
+              if (fila[columna].equals(valor)) {
+                  
+                  listadoValores.add(fila);
+              }
+          }
           
-          return null;
+          return listadoValores;
+//          NO HACER ASI!!! 
+//         //recorrer toda la lista y sacar las filas que tienen un valor coincidente
+//          for (String[] fila : lista) {
+//              for (String columna : fila) {
+//                  
+//                  if(columna.equals(valor)){
+//                  
+//                      listadoValores.add(fila);
+//                  }
+//              }
+//          }
+//          
+          
       }
       
       //contar columnas del fichero 
@@ -49,8 +72,18 @@ public class GestorCSV {
       
      
       //devolver cuantos valores tiene incompletos tiene una columna y su % sobre el total
-      public static void detectarVacios(){
+      public static void detectarVacios(List<String[]> lista){
       
+          // recorrer toda la lista y sacar las filas que tienen un valor coincidente
+          for (String[] fila : lista) {
+              for (String columna : fila) {
+                  
+                  if(columna == null){//buscar huecos vacios
+                  
+                      
+                  }
+              }
+          }
       
       }
       //HACER ESTO EN MAIN
