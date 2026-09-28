@@ -3,10 +3,14 @@
  */
 package com.mycompany.h2_titanic;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.regex.PatternSyntaxException;
 
 /**
  *
@@ -28,7 +32,7 @@ public class H2_titanic {
 
             do {
                 int opcion = menu();//recoger opcion del menu
-                
+
                 switch (opcion) {
 
                     case 0 -> {
@@ -37,19 +41,16 @@ public class H2_titanic {
                     }
 
                     case 1 -> {//mostrar lista formateada
-                        
-                        List<String> lista = opcion1(ruta);
-                        
-                        for (String string : lista) {
-                            
-                            System.out.println(string);
-                        }
+
+                        opcion1(ruta);
                     }
 
                     case 2 -> {//buscar un valor en una columna
+
                     }
 
-                    case 3 -> {
+                    case 3 -> {//contar columnas
+
                     }
 
                     case 4 -> {
@@ -58,7 +59,6 @@ public class H2_titanic {
                     case 5 -> {
                     }
 
-                    
                 }
             } while (!salir);
         }
@@ -77,26 +77,56 @@ public class H2_titanic {
         return opcion;
 
     }
-    
-    //ver contenido
-    private static List<String> opcion1(Path ruta){
-    
-        //recoger listado
-       List<String> lista = GestorCSV.mostrarContenido(ruta);
-       List<String> lista2 = null;
-       
-       try {
-        for (String string : lista) {//formatear salida del 
-            
-            lista2.add(string.replace(',', '|'));
-            
+
+    private static void opcion1(Path ruta) {
+
+        List<String[]> lista = tablaCSV(ruta);
+
+        for (String[] fila : lista) {//recorrer filas
+
+            for (String columna : fila) {//imprimir datos separados por |
+
+                System.out.print(columna + " |");
+            }
+            System.out.println("");//salto de linea
         }
-       } catch(NullPointerException e){
+    }
+
+    //llamar a contar columnas
+    private static void opcion3(Path ruta) throws IOException {
+
+       int columnas = GestorCSV.contarColumnas(tablaCSV(ruta));
        
-           System.out.println("La lista es nula");
-       }
-       
-       return lista2;
-       
+        System.out.println("Nº de columnas: " + columnas);
+    }
+
+    //ver contenido
+    private static List<String[]> tablaCSV(Path ruta) {
+
+        List<String[]> lista2 = null;//usar array de String para representar las columnas
+        try {
+            //recoger el listado
+            List<String> lista = GestorCSV.mostrarContenido(ruta);
+
+            //llenar segunda lista
+            for (String string : lista) {
+
+                //añadir a la segunda lista un String[] por cada fila
+                //separando la cadena por la ,
+                lista2.add(string.split(","));
+
+            }
+        } catch (NullPointerException e) {
+
+            System.out.println("La lista es nula");
+        } catch (IOException ex) {
+            Logger.getLogger(H2_titanic.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (PatternSyntaxException e) {
+
+            System.out.println("Patrón erroneo");
+        }
+
+        return lista2;
+
     }
 }

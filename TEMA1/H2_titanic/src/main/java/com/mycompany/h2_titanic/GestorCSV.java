@@ -4,8 +4,10 @@
  */
 package com.mycompany.h2_titanic;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.List;
 
 /**
@@ -20,27 +22,38 @@ public class GestorCSV {
     }
       
       //leer fichero y meter cada linea en una coleccion
-      public static List<String> mostrarContenido(Path ruta){
-          return null;
+      public static List<String> mostrarContenido(Path ruta) throws IOException{
+          return Files.readAllLines(ruta);
       }
       
       //buscar valor en el fichero y devolver todas filas 
-      public List<String> mostrarValor(String columna, String valor){
+      public List<String> mostrarValor(){
           
           
           return null;
       }
       
       //contar columnas del fichero 
-      public int contarColumnas(){
-          return 0;
+      public static int contarColumnas(List<String[]> lista) throws IOException{
+          
+          
+          //devolver recuento de columnas      
+          return lista.get(0).length;
       }
       
       //añadir una fila al final del documento sin alterar las demás
-      public void anadirFinal(Path ruta, String columna){}
+      public static void anadirFinal(Path ruta, String linea) throws IOException{
       
+          Files.writeString(ruta, linea, StandardOpenOption.APPEND);
+      }
+      
+     
       //devolver cuantos valores tiene incompletos tiene una columna y su % sobre el total
-      public void detectarVacios(){}
+      public static void detectarVacios(){
+      
+      
+      }
+      //HACER ESTO EN MAIN
       
 //      //formatear salida del csv
 //      public List<String> formatearSalida(List<String> lista){
