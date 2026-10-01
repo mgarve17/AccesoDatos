@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<alumno id="7">
+    <nombre>Ana López</nombre>
+    <edad>19</edad>
+    <modulos>
+        <modulo>Programación</modulo>
+        <modulo>Bases de datos</modulo>
+    </modulos>
+</alumno>
