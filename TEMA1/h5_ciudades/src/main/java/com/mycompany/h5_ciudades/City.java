@@ -5,13 +5,15 @@
 package com.mycompany.h5_ciudades;
 
 import java.io.Serializable;
+import java.util.Comparator;
+import java.util.Objects;
 
 /**
  *
  * @author daw2
  */
-public class City implements Serializable{
-    
+public class City implements Serializable, Comparable<City> {
+
     private static final long serialVersionUID = 1L;
     private int id;
     private String nombre;
@@ -71,6 +73,30 @@ public class City implements Serializable{
     public String toString() {
         return "City{" + "id=" + id + ", nombre=" + nombre + ", codPais=" + codPais + ", provincia=" + provincia + ", poblacion=" + poblacion + '}';
     }
-    
-    
+
+    @Override
+    public boolean equals(Object obj) {
+
+//        si obj y this NO referencian al mismo objeto return false
+//        si obj no es una instancia de city return false
+//        si obj es una instancia de ciudad y su nombre y codigo de pais coinciden return true
+        return this == obj || (obj instanceof City ciudad && Objects.equals(nombre, ciudad.nombre)
+                && Objects.equals(codPais, ciudad.codPais));
+    }
+
+    //hashcode para la comparacion
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(nombre, codPais);
+    }
+
+    @Override
+    public int compareTo(City otra) {
+        
+        //1. comparar nombre de las ciudades
+        //2. compara el codigo del pais
+        //3. compara el objeto actual con el objeto recibido por parametro
+        return Comparator.comparing(City::getNombre).thenComparing(City::getCodPais).compare(this, otra);
+    }
 }

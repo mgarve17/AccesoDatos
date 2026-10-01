@@ -9,6 +9,7 @@ import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.util.List;
 
 
 
@@ -38,5 +39,22 @@ public class GestorCSV {
             }
         }
     }
+    
+      //leer fichero y meter cada linea en una coleccion
+      public static List<String> mostrarContenido(Path ruta) throws IOException{
+          return Files.readAllLines(ruta);
+      }
+      
+      //saca el ultimo id de la coleccion para añadirlo en el constructor de Ciudad
+      public static int getUltimoID(Path ruta) throws IOException{
+          
+          int id;
+          
+          
+          
+          
+        return 0;
+    }
+      
     
 }

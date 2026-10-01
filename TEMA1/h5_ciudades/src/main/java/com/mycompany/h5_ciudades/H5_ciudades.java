@@ -5,6 +5,7 @@ package com.mycompany.h5_ciudades;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -25,9 +26,11 @@ public class H5_ciudades {
 
             System.out.println("No existe este fichero");
             //CREAR CIUDADES.OBJ
-            
+  
             
         } else {
+            
+            
             
             boolean salir = false;
 
@@ -95,5 +98,47 @@ public class H5_ciudades {
         
         System.out.println("Población: ");
         int poblacion = Integer.parseInt(new Scanner(System.in).nextLine().trim());
+        
+    }
+    
+    //leer contenido: mostrar una ciudad por linea
+    private static void opcion2(List<String[]> tabla){
+        
+        for (String[] fila : tabla) {//recorrer las filas
+            
+            for (String columna : fila) {
+                
+                System.out.println(columna + " | ");
+            }
+            
+        }
+    
+    }
+    
+    //mostrar ciudades repetidas (mismo nombre y código de país) y el nº de veces que aparece
+    private static void opcion3(){}
+    
+    //borrar una ciudad por su nombre y codigo, informar de cuantas se han borrado o si no se ha borrado
+    private static void opcion4(){}
+    
+    //mostrar la ciudad o las ciudades mas pobladas si coinciden en poblacion
+    private static void opcion5(){}
+    
+    private static List<String[]> tablaCSV(List<String> lista){
+    
+        List<String[]> tabla = null;
+        try {
+        
+            //recorrer coleccion para meterla en la lista ya formateada
+            for (String string : lista) {
+                
+                tabla.add(string.split(","));
+            }
+            
+        } catch(NullPointerException e){
+        
+            System.out.println("Colección nula");
+        }
+        return tabla;
     }
 }
