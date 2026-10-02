@@ -12,7 +12,7 @@ import java.util.Objects;
  *
  * @author daw2
  */
-public class City implements Serializable, Comparable<City> {
+public class City implements Serializable /*Comparable<City>*/ {
 
     private static final long serialVersionUID = 1L;
     private int id;
@@ -20,6 +20,9 @@ public class City implements Serializable, Comparable<City> {
     private String codPais;
     private String provincia;
     private int poblacion;
+
+    public City() {
+    }
 
     public City(int id, String nombre, String codPais, String provincia, int poblacion) {
         this.id = id;//MIRAR PARA GENERAR EL ID SEGUN EL ULTIMO EXISTENTE????
@@ -74,29 +77,33 @@ public class City implements Serializable, Comparable<City> {
         return "City{" + "id=" + id + ", nombre=" + nombre + ", codPais=" + codPais + ", provincia=" + provincia + ", poblacion=" + poblacion + '}';
     }
 
-    @Override
-    public boolean equals(Object obj) {
-
-//        si obj y this NO referencian al mismo objeto return false
-//        si obj no es una instancia de city return false
-//        si obj es una instancia de ciudad y su nombre y codigo de pais coinciden return true
-        return this == obj || (obj instanceof City ciudad && Objects.equals(nombre, ciudad.nombre)
-                && Objects.equals(codPais, ciudad.codPais));
-    }
-
-    //hashcode para la comparacion
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(nombre, codPais);
-    }
-
-    @Override
-    public int compareTo(City otra) {
-        
-        //1. comparar nombre de las ciudades
-        //2. compara el codigo del pais
-        //3. compara el objeto actual con el objeto recibido por parametro
-        return Comparator.comparing(City::getNombre).thenComparing(City::getCodPais).compare(this, otra);
-    }
+    
+    //SUSTITUIR LOS METODOS DE ABAJO POR COMPARATOR EN
+    
+    
+//    @Override
+//    public boolean equals(Object obj) {
+//
+////        si obj y this NO referencian al mismo objeto return false
+////        si obj no es una instancia de city return false
+////        si obj es una instancia de ciudad y su nombre y codigo de pais coinciden return true
+//        return this == obj || (obj instanceof City ciudad && Objects.equals(nombre, ciudad.nombre)
+//                && Objects.equals(codPais, ciudad.codPais));
+//    }
+//
+//    //hashcode para la comparacion
+//    @Override
+//    public int hashCode() {
+//
+//        return Objects.hash(nombre, codPais);
+//    }
+//
+//    @Override
+//    public int compareTo(City otra) {
+//        
+//        //1. comparar nombre de las ciudades
+//        //2. compara el codigo del pais
+//        //3. compara el objeto actual con el objeto recibido por parametro
+//        return Comparator.comparing(City::getNombre).thenComparing(City::getCodPais).compare(this, otra);
+//    }
 }

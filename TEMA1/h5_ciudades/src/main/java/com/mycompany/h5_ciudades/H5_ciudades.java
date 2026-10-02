@@ -17,17 +17,18 @@ public class H5_ciudades {
     public static void main(String[] args) {
 
         //pedir ruta
-        System.out.println("ruta del fichero: ");
-        Path ruta = Path.of(new Scanner(System.in).nextLine().trim());
+        //System.out.println("ruta del fichero: ");
+        Path ruta = Path.of("ciudades.csv");
+        
+        Path fileCiudades = Path.of("ciudades.obj");//crear fichero obj
         
         
 
         if (!Files.isRegularFile(ruta)) {
 
             System.out.println("No existe este fichero");
-            //CREAR CIUDADES.OBJ
-  
             
+        
         } else {
             
             
@@ -49,15 +50,49 @@ public class H5_ciudades {
                     }
 
                     case 2 -> {
+                        
+                        if (!Files.isRegularFile(ruta)) {
+                            
+                            System.out.println("no hay ciudades almacenadas");
+                        } else {
+                            List<String[]> tabla = null;//BORRAR LUEGO
+                        
+                            //opcion2(tabla);
+                        }
                     }
 
                     case 3 -> {
+                        
+                        if (!Files.isRegularFile(ruta)) {
+                            
+                            System.out.println("no hay ciudades almacenadas");
+                        } else {
+                        
+                            opcion3();
+                        }
+                        
                     }
 
                     case 4 -> {
+                         if (!Files.isRegularFile(ruta)) {
+                            
+                            System.out.println("no hay ciudades almacenadas");
+                        } else {
+                         
+                             opcion4();
+                         }
+                        
                     }
 
                     case 5 -> {
+                        
+                         if (!Files.isRegularFile(ruta)) {
+                            
+                            System.out.println("no hay ciudades almacenadas");
+                        } else {
+                         
+                             opcion5();
+                         }
                     }
 
                     default -> {
@@ -88,7 +123,7 @@ public class H5_ciudades {
         
         //pedir datos
         System.out.println("Nombre: ");
-        String nombre = new Scanner(System.in).nextLine().trim().toUpperCase();
+        String nombre = new Scanner(System.in).nextLine().trim().toUpperCase();//mover el uppercase al constructor
         
         System.out.println("codigo de país: ");
         String codigoPais = new Scanner(System.in).nextLine().trim().toUpperCase();
@@ -101,19 +136,19 @@ public class H5_ciudades {
         
     }
     
-    //leer contenido: mostrar una ciudad por linea
-    private static void opcion2(List<String[]> tabla){
-        
-        for (String[] fila : tabla) {//recorrer las filas
-            
-            for (String columna : fila) {
-                
-                System.out.println(columna + " | ");
-            }
-            
-        }
-    
-    }
+//    //leer contenido: mostrar una ciudad por linea
+//    private static void opcion2(List<String[]> tabla){
+//        
+//        for (String[] fila : tabla) {//recorrer las filas
+//            
+//            for (String columna : fila) {
+//                
+//                System.out.println(columna + " | ");
+//            }
+//            
+//        }
+//    
+//    }
     
     //mostrar ciudades repetidas (mismo nombre y código de país) y el nº de veces que aparece
     private static void opcion3(){}

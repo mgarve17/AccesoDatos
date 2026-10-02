@@ -4,11 +4,14 @@
  */
 package com.mycompany.h5_ciudades;
 
+import java.io.EOFException;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -41,18 +44,35 @@ public class GestorCSV {
     }
     
       //leer fichero y meter cada linea en una coleccion
-      public static List<String> mostrarContenido(Path ruta) throws IOException{
-          return Files.readAllLines(ruta);
+      public static List<City> mostrarContenido(Path ruta) throws IOException, ClassNotFoundException{
+          
+          List<City> ciudades = new ArrayList<>();
+          
+          try(ObjectInputStream entrada = new ObjectInputStream(Files.newInputStream(ruta))){
+          
+              while(true){
+              
+                  ciudades.add((City) entrada.readObject());
+              }
+              
+          } catch(EOFException e){
+          
+          }
+  
+          return Files.exists(ruta) && Files.size(ruta) == 0 ? null : ciudades;
+          
+          
       }
+      
+      
+      
+      
       
       //saca el ultimo id de la coleccion para añadirlo en el constructor de Ciudad
       public static int getUltimoID(Path ruta) throws IOException{
           
           int id;
-          
-          
-          
-          
+    
         return 0;
     }
       
