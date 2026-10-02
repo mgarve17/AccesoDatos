@@ -46,7 +46,7 @@ public class GestorCSV {
       //leer fichero y meter cada linea en una coleccion
       public static List<City> mostrarContenido(Path ruta) throws IOException, ClassNotFoundException{
           
-          List<City> ciudades = new ArrayList<>();
+          List<City> ciudades = new ArrayList<>();//colección para guardar las ciduades leidas
           
           try(ObjectInputStream entrada = new ObjectInputStream(Files.newInputStream(ruta))){
           
