@@ -13,6 +13,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -21,6 +22,7 @@ import java.util.List;
  */
 public class GestorCSV {
 
+    //private static final Path ruta= Path.of("ciudades.obj");
     public static void añadirCiudad(City ciudad, Path ruta) throws IOException {
 
         //comprobar si tiene cabecera
@@ -61,7 +63,15 @@ public class GestorCSV {
 
     }
 
-    //HACER CON MAPAS
+    public static List<City> ordenarCiudades(List<City> ciudades) {
+
+        ciudades.sort(Comparator.comparing(City::getNombre).thenComparing(City::getCodPais));
+
+        return ciudades;
+
+    }
+
+    //REPETIR CON MAPAS
     public static List<String> obtenerRepetidas(List<City> ciudades) {
 
         List<City> ordenadas = ordenarCiudades(ciudades);//recoger la lista ordenada para que los dupes esten consecutivos
@@ -88,6 +98,22 @@ public class GestorCSV {
         return repetidas;
 
     }
+
+    public static void eliminarCiudad(String nombre, String codigo, List<City> ciudades) throws IOException {
+
+        //borrar las ciudades que coincidan en nombre y codigo
+        ciudades.removeIf(c -> c.getNombre().equals(nombre) && c.getCodPais().equals(codigo));
+
+        //sobreescribir fichero con los cambios
+        try (ObjectOutputStream salida = new ObjectOutputStream(Files.newOutputStream(Path.of("ciudades.obj")))) {
+
+            for (City ciudad : ciudades) {
+                salida.writeObject(ciudad);
+
+            }
+        }
+
+    }
     //1. comparar obj City por su nombre
     //2. comparar obj City por su codigo
     //3. si el resultado es 0 son iguales, otra cosa es false
@@ -97,18 +123,24 @@ public class GestorCSV {
         return Comparator.comparing(City::getNombre).thenComparing(City::getCodPais).compare(a, b) == 0;
     }
 
-    public static List<City> ordenarCiudades(List<City> ciudades) {
+    public static City masPoblada(List<City> ciudades) {
 
-        ciudades.sort(Comparator.comparing(City::getNombre).thenComparing(City::getCodPais));
+        City aux = ciudades.get(0);
 
-        return ciudades;
+        for (City ciudad : ciudades) {
 
+            if (ciudad.getPoblacion() > aux.getPoblacion()) {
+
+                aux = ciudad;
+            }
+        }
+
+        return aux;
     }
 
-    //saca el ultimo id de la coleccion para añadirlo en el constructor de Ciudad
-    public static int getUltimoID(List<City> ciudades) throws IOException {
-
-        return ciudades.getLast().getId();
-    }
-
+//    //saca el ultimo id de la coleccion para añadirlo en el constructor de Ciudad
+//    public static int getUltimoID(List<City> ciudades) throws IOException {
+//
+//        return ciudades.getLast().getId();
+//    }
 }

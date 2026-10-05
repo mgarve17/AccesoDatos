@@ -3,6 +3,7 @@
  */
 package com.mycompany.h5_ciudades;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -19,20 +20,24 @@ public class H5_ciudades {
         //pedir ruta
         //System.out.println("ruta del fichero: ");
         Path ruta = Path.of("ciudades.csv");
-        
+
         Path fileCiudades = Path.of("ciudades.obj");//crear fichero obj
-        
-        
 
         if (!Files.isRegularFile(ruta)) {
 
-            System.out.println("No existe este fichero");
-            
-        
+            System.out.println("No existe este fichero CSV");
+
         } else {
-            
-            
-            
+
+            gestionMenu(fileCiudades, ruta);
+
+        }
+    }
+
+    private static void gestionMenu(Path fileCiudades, Path ruta) {
+        //llenar obj
+
+        if (fileCiudades != null) {
             boolean salir = false;
 
             do {
@@ -47,52 +52,52 @@ public class H5_ciudades {
                     }
 
                     case 1 -> {
+
+                        opcion1(ruta, fileCiudades);
                     }
 
                     case 2 -> {
-                        
+
                         if (!Files.isRegularFile(ruta)) {
-                            
+
                             System.out.println("no hay ciudades almacenadas");
                         } else {
-                            List<String[]> tabla = null;//BORRAR LUEGO
-                        
-                            //opcion2(tabla);
+                            opcion2(fileCiudades);
                         }
                     }
 
                     case 3 -> {
-                        
+
                         if (!Files.isRegularFile(ruta)) {
-                            
+
                             System.out.println("no hay ciudades almacenadas");
                         } else {
-                        
-                            opcion3();
+
+                            opcion3(fileCiudades);
                         }
-                        
+
                     }
 
                     case 4 -> {
-                         if (!Files.isRegularFile(ruta)) {
-                            
+                        if (!Files.isRegularFile(ruta)) {
+
                             System.out.println("no hay ciudades almacenadas");
                         } else {
-                         
-                             opcion4();
-                         }
-                        
+
+                            opcion4(fileCiudades);
+                        }
+
                     }
 
                     case 5 -> {
-                        
-                         if (!Files.isRegularFile(ruta)) {
-                            
+
+                        if (!Files.isRegularFile(ruta)) {
+
                             System.out.println("no hay ciudades almacenadas");
                         } else {
-                         
-                             opcion5();
-                         }
+
+                            opcion5(fileCiudades);
+                        }
                     }
 
                     default -> {
@@ -101,6 +106,9 @@ public class H5_ciudades {
                 }
 
             } while (!salir);
+        } else {
+
+            System.out.println("fichero obj no encontrado");
         }
     }
 
@@ -116,64 +124,102 @@ public class H5_ciudades {
 
         return Integer.parseInt(new Scanner(System.in).nextLine().trim());
     }
-    
+
     //añadir ciudad al .obj
-    private static void opcion1(){
-    
-        
-        //pedir datos
-        System.out.println("Nombre: ");
-        String nombre = new Scanner(System.in).nextLine().trim().toUpperCase();//mover el uppercase al constructor
-        
-        System.out.println("codigo de país: ");
-        String codigoPais = new Scanner(System.in).nextLine().trim().toUpperCase();
-        
-        System.out.println("Provincia: ");
-        String provincia = new Scanner(System.in).nextLine().trim().toUpperCase();
-        
-        System.out.println("Población: ");
-        int poblacion = Integer.parseInt(new Scanner(System.in).nextLine().trim());
-        
-    }
-    
-//    //leer contenido: mostrar una ciudad por linea
-//    private static void opcion2(List<String[]> tabla){
-//        
-//        for (String[] fila : tabla) {//recorrer las filas
-//            
-//            for (String columna : fila) {
-//                
-//                System.out.println(columna + " | ");
-//            }
-//            
-//        }
-//    
-//    }
-    
-    //mostrar ciudades repetidas (mismo nombre y código de país) y el nº de veces que aparece
-    private static void opcion3(){}
-    
-    //borrar una ciudad por su nombre y codigo, informar de cuantas se han borrado o si no se ha borrado
-    private static void opcion4(){}
-    
-    //mostrar la ciudad o las ciudades mas pobladas si coinciden en poblacion
-    private static void opcion5(){}
-    
-    private static List<String[]> tablaCSV(List<String> lista){
-    
-        List<String[]> tabla = null;
+    private static void opcion1(Path rutaCSV, Path rutaOBJ) {
+
         try {
-        
-            //recorrer coleccion para meterla en la lista ya formateada
-            for (String string : lista) {
-                
-                tabla.add(string.split(","));
+            System.out.println("nº línea del csv: ");
+            int numLinea = Integer.parseInt(new Scanner(System.in).nextLine().trim());
+
+            City ciudad = GestorCSV.obtenerCiudades(rutaCSV).get(numLinea);//obtener ciudad del csv
+
+            if (ciudad == null) {
+                System.out.println("No hay una ciudad en esa posición");
+            } else {
+
+                GestorCSV.añadirCiudad(ciudad, rutaOBJ);
             }
-            
-        } catch(NullPointerException e){
-        
-            System.out.println("Colección nula");
+
+        } catch (NumberFormatException e) {
+
+            System.out.println("Formato incorrecto");
+        } catch (IOException ex) {
+            System.getLogger(H5_ciudades.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        } catch (ClassNotFoundException ex) {
+            System.getLogger(H5_ciudades.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
-        return tabla;
+
     }
+
+    //mostrar todas las ciudades almacenadas
+    private static void opcion2(Path rutaOBJ) {
+
+        try {
+
+            List<City> ordenadas = GestorCSV.ordenarCiudades(GestorCSV.obtenerCiudades(rutaOBJ));
+
+            for (City ordenada : ordenadas) {
+
+                System.out.println(ordenada.toString());
+            }
+
+        } catch (IOException ex) {
+            System.getLogger(H5_ciudades.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        } catch (ClassNotFoundException ex) {
+            System.getLogger(H5_ciudades.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+    }
+
+    //mostrar ciudades repetidas (mismo nombre y código de país) y el nº de veces que aparece
+    private static void opcion3(Path rutaOBJ) {
+
+        try {
+
+            List<City> ordenadas = GestorCSV.ordenarCiudades(GestorCSV.obtenerCiudades(rutaOBJ));
+
+            List<String> repetidas = GestorCSV.obtenerRepetidas(ordenadas);
+
+            System.out.println("Nº REPETIDAS: " + repetidas.size());
+            
+            for (String repetida : repetidas) {
+                System.out.println(repetida);
+                
+            }
+        } catch (IOException ex) {
+            System.getLogger(H5_ciudades.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        } catch (ClassNotFoundException ex) {
+            System.getLogger(H5_ciudades.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+    }
+
+    //borrar una ciudad por su nombre y codigo, informar de cuantas se han borrado o si no se ha borrado
+    private static void opcion4(Path rutaOBJ) {
+        
+        System.out.println("Nombre de la ciudad: ");
+        String ciudad = new Scanner(System.in).nextLine().toUpperCase().trim();
+        
+        //AÑADIR EL REGEX LLUEGO
+        System.out.println("Codigo de pais: ");
+        String codigo = new Scanner(System.in).nextLine().toUpperCase().trim();
+        
+        
+    }
+
+    //mostrar la ciudad o las ciudades mas pobladas si coinciden en poblacion
+    private static void opcion5(Path rutaOBJ) {
+        
+        try {
+            City ciudad = GestorCSV.masPoblada(GestorCSV.obtenerCiudades(rutaOBJ));
+            
+            System.out.println("CIUDAD MÁS POBLADA: " + ciudad.toString());
+            
+            
+        } catch (IOException ex) {
+            System.getLogger(H5_ciudades.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        } catch (ClassNotFoundException ex) {
+            System.getLogger(H5_ciudades.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+    }
+
 }
