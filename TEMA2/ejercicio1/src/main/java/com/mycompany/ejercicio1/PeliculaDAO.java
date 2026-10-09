@@ -27,8 +27,7 @@ public class PeliculaDAO implements Repositorio<Pelicula> {
     public List<Pelicula> listar() {
         List<Pelicula> peliculas = new ArrayList<>();
 
-        try (Statement stmt = getConnection().createStatement(); 
-                ResultSet rs = stmt.executeQuery("SELECT id, title, director, release_year, genre from movies")) {
+        try (Statement stmt = getConnection().createStatement(); ResultSet rs = stmt.executeQuery("SELECT id, title, director, release_year, genre from movies")) {
 
             while (rs.next()) {
 
@@ -52,39 +51,41 @@ public class PeliculaDAO implements Repositorio<Pelicula> {
     @Override
     public boolean guardar(Pelicula t) {
 
-        
-        if (t.getId() > 0) {
-            
-           String sql = "INSERT INTO movies (title, director, release_year,genre) VALUES(?,?,?,?)"; 
-           
-           try(PreparedStatement ps = getConnection().prepareCall(sql)){
-           
-               
-           } catch (SQLException ex) {
-                System.getLogger(PeliculaDAO.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
-            }
+        String sql = "INSERT INTO movies (title, director, release_year,genre) VALUES(?,?,?,?)";
+
+        try (PreparedStatement ps = getConnection().prepareCall(sql)) {
+
+        } catch (SQLException ex) {
+            System.getLogger(PeliculaDAO.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
+
         return false;
     }
 
     @Override
     public boolean eliminar(int id) {
 
+        return false;
+
     }
 
     @Override
     public Pelicula porId(int id) {
+
+        return null;
 
     }
 
     @Override
     public boolean actualizar(Pelicula t) {
 
+        return false;
+
     }
 
     private Pelicula crearPelicula(final ResultSet rs) throws SQLException {
 
-        return new Pelicula(rs.getInt("id"), rs.getString("title"), rs.getString("director"), rs.getDate("release_year"), rs.getString("genre"));
+        return new Pelicula(rs.getInt("id"), rs.getString("title"), rs.getString("director"), rs.getInt("release_year"), rs.getString("genre"));
     }
 
 }
