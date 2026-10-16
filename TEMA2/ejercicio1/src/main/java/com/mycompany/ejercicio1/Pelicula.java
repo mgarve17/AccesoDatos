@@ -4,7 +4,6 @@
  */
 package com.mycompany.ejercicio1;
 
-import java.sql.Date;
 import java.util.Objects;
 
 /**
@@ -34,6 +33,8 @@ public class Pelicula {
         setDirector(director);
         this.fechaSalida = (fecha);
         setGenero(genero);
+        
+        
     }
 
     public Integer getId() {

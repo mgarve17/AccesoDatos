@@ -14,7 +14,7 @@ import java.util.List;
 public interface Repositorio<T> {
     
     public List<T> listar();
-    public T porId(int id);
+    public T recuperarPorId(int id);
     public boolean guardar(T t);
     public boolean eliminar(int id);
     public boolean actualizar(T t);
