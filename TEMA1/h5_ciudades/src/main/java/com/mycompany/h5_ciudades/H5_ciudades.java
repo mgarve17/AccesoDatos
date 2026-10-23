@@ -28,8 +28,12 @@ public class H5_ciudades {
             System.out.println("No existe este fichero CSV");
 
         } else {
-
+            try {
             gestionMenu(fileCiudades, ruta);
+            } catch(NumberFormatException e){
+            
+                System.out.println(e.getMessage());
+            }
 
         }
     }
@@ -112,7 +116,7 @@ public class H5_ciudades {
         }
     }
 
-    private static int menu() {
+    private static int menu() throws NumberFormatException {
 
         System.out.println("""
                            1. A\u00f1adir ciudad 
