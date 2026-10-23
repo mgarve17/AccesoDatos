@@ -1,0 +1,4 @@
+¡Hola, mundo de Acceso a Datos!
+Programación en Java: Ñandú, pingüino, ábaco y ñoquis.
+Símbolos Unicode: 🚀, 💻, €
+Línea 4: Pruebas de lectura de texto y caracteres especiales.
