@@ -21,7 +21,7 @@ public class AccesoBD {
 
     private static final String FICHERO = "/db.properties";
     private static final Properties PROPS = cargarPropiedades();
-    private static final String URL = obligatoria(PROPS, "db.user");
+    private static final String URL = obligatoria(PROPS, "db.url");
     private static final String USER= obligatoria(PROPS,"db.user");
     private static final String PASSWORD = obligatoria(PROPS, "db.password");
     
@@ -33,6 +33,7 @@ public class AccesoBD {
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }
     
+    //leer db.propierties 
     public static Properties cargarPropiedades(){
     
         Properties prop = new Properties();
@@ -52,6 +53,7 @@ public class AccesoBD {
         return prop;
     }
     
+    //mirar si existe la clave pasada por parametro en el archivo db.properties
     public static String obligatoria(Properties prop, String clave){
     
         String valor = prop.getProperty(clave);
